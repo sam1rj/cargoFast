@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
+import Slider from "./components/Slider";
+import Footer from "./components/Footer";
+
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showPasswordInput, setShowPasswordInput] = useState(false);
@@ -35,6 +41,7 @@ function App() {
         alert("Şifrə yanlışdır");
       } else if (password === lastTriedPassword) {
         alert("Giriş uğurludur!");
+        setShowLogin(false); // Login ekranını bağla
       } else {
         setLastTriedPassword(password);
         alert("Şifrə yanlışdır");
@@ -47,8 +54,19 @@ function App() {
 
   return (
     <div className="bg-light text-dark position-relative">
-      {/* Sayt hissələri (Header, Hero və s.) burda ola bilər */}
 
+      {/* Əsas sayt hissəsi */}
+      {!showLogin && (
+        <>
+          <Header />
+          <Hero />
+          <Services />
+          <Slider />
+          <Footer />
+        </>
+      )}
+
+      {/* Login overlay */}
       {showLogin && (
         <div
           className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
